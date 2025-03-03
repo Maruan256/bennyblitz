@@ -42,7 +42,7 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div key={theme} className="max-w-4xl mx-auto">
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 md:p-6">
         <div className="text-sm md:text-base leading-relaxed">
           <div className="text-[hsl(var(--syntax-highlight))] mb-2">
@@ -98,10 +98,10 @@ export default function Portfolio() {
             <span className="text-secondary">Developer</span>
             <span className="text-accent-foreground"> name</span>
             <span className="text-primary">=</span>
-            <span className="text-secondary">&apos;John Doe&apos;</span>
+            <span className="text-secondary">&apos;Benny Blitz&apos;</span>
             <span className="text-accent-foreground"> title</span>
             <span className="text-primary">=</span>
-            <span className="text-secondary">&apos;Frontend Developer&apos;</span>
+            <span className="text-secondary">&apos;Web Developer&apos;</span>
             <span className="text-[hsl(var(--syntax-highlight))]">&gt;</span>
           </div>
 
@@ -150,8 +150,8 @@ export default function Portfolio() {
               <div className="py-2">
                 <div className="text-sm text-muted-foreground mb-2">&#123;/* About me */&#125;</div>
                 <p className="text-sm mb-2 text-foreground">
-                  Passionate frontend developer with a keen eye for creating elegant user interfaces and seamless user
-                  experiences. I enjoy turning complex problems into simple, beautiful, and intuitive designs.
+                  Not really "passionate" about anything. Just a web developer who loves building things that live on the
+                  internet.
                 </p>
                 <div className="flex items-center space-x-4 mt-4">
                   <a
@@ -159,25 +159,25 @@ export default function Portfolio() {
                     className="flex items-center text-sm text-primary hover:text-primary/80"
                   >
                     <Mail className="h-4 w-4 mr-1" />
-                    <span>john.doe@example.com</span>
+                    <span>blitzbenny8@gmail.com</span>
                   </a>
                   <a
-                    href="https://github.com"
+                    href="https://github.com/Maruan256"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center text-sm text-primary hover:text-primary/80"
                   >
                     <Github className="h-4 w-4 mr-1" />
-                    <span>github.com/johndoe</span>
+                    <span>github.com/Maruan256</span>
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/maruan-paschen/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center text-sm text-primary hover:text-primary/80"
                   >
                     <Linkedin className="h-4 w-4 mr-1" />
-                    <span>linkedin.com/in/johndoe</span>
+                    <span>linkedin.com/in/maruan-paschen</span>
                   </a>
                 </div>
               </div>
@@ -190,28 +190,27 @@ export default function Portfolio() {
                   <AccordionItem value="item-1">
                     <AccordionTrigger className="text-sm">
                       <div>
-                        <div className="font-medium text-foreground">Senior Frontend Developer</div>
-                        <div className="text-xs text-muted-foreground">Tech Company Inc. | 2021 - Present</div>
+                        <div className="font-medium text-foreground">Frontend Developer</div>
+                        <div className="text-xs text-muted-foreground">HSH Kommunalsoftware| 2024 - Present</div>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-foreground">
                       <ul className="list-disc list-inside text-sm space-y-1">
-                        <li>Led the development of the company's flagship web application</li>
-                        <li>Implemented responsive designs and improved performance by 40%</li>
-                        <li>Mentored junior developers and conducted code reviews</li>
+                        <li>Maintaining the front-end portion of a large code base</li>
+                        <li>Implemented responsive designs and improved performance</li>
                       </ul>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
                     <AccordionTrigger className="text-sm">
                       <div>
-                        <div className="font-medium text-foreground">Frontend Developer</div>
-                        <div className="text-xs text-muted-foreground">Digital Agency | 2018 - 2021</div>
+                        <div className="font-medium text-foreground">Full Stck Developer</div>
+                        <div className="text-xs text-muted-foreground">Lufthansa Industry Solutions | 2022 - 2024</div>
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-foreground">
                       <ul className="list-disc list-inside text-sm space-y-1">
-                        <li>Developed and maintained client websites using React and Next.js</li>
+                        <li>Developed and maintained different fullstack Applications</li>
                         <li>Collaborated with designers to implement pixel-perfect UIs</li>
                         <li>Optimized applications for maximum speed and scalability</li>
                       </ul>
@@ -225,16 +224,16 @@ export default function Portfolio() {
               <div className="py-2">
                 <div className="text-sm text-muted-foreground mb-2">&#123;/* Education */&#125;</div>
                 <div className="mb-4">
-                  <h3 className="text-sm font-medium text-foreground">Master of Computer Science</h3>
-                  <p className="text-xs text-muted-foreground">University of Technology | 2016 - 2018</p>
+                  <h3 className="text-sm font-medium text-foreground">Master of Arts</h3>
+                  <p className="text-xs text-muted-foreground">University of Leipzig | 2012 - 2014</p>
                   <p className="text-sm mt-1 text-foreground">
-                    Specialized in Human-Computer Interaction and Web Technologies
+                    Written two novels actually, one was my thesis.
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium text-foreground">Bachelor of Science in Software Engineering</h3>
-                  <p className="text-xs text-muted-foreground">State University | 2012 - 2016</p>
-                  <p className="text-sm mt-1 text-foreground">Graduated with honors, GPA 3.8/4.0</p>
+                  <h3 className="text-sm font-medium text-foreground">Bachelor of fine Arts in creative writing</h3>
+                  <p className="text-xs text-muted-foreground">Hochschule der Künste Bern | 2009 - 2012</p>
+                  <p className="text-sm mt-1 text-foreground">Keen focus on digital Arts</p>
                 </div>
               </div>
             )}
@@ -246,7 +245,7 @@ export default function Portfolio() {
                   <div>
                     <h3 className="text-sm font-medium text-foreground mb-2">Frontend</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS"].map((skill) => (
+                      {["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", "Angular", "zod"].map((skill) => (
                         <span key={skill} className="px-2 py-1 bg-primary/10 text-xs rounded-md text-primary">
                           {skill}
                         </span>
@@ -256,7 +255,7 @@ export default function Portfolio() {
                   <div>
                     <h3 className="text-sm font-medium text-foreground mb-2">Tools & Others</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["Git", "GitHub", "VS Code", "Figma", "Jest", "Webpack", "npm"].map((skill) => (
+                      {["Git", "GitHub", "VS Code", "Figma", "Jest", "Webpack", "npm", "moccha", "playwright", "Docker", "Jenkins"].map((skill) => (
                         <span key={skill} className="px-2 py-1 bg-primary/10 text-xs rounded-md text-primary">
                           {skill}
                         </span>
@@ -273,9 +272,9 @@ export default function Portfolio() {
                 <div className="space-y-4">
                   <div className="border border-border rounded-md p-3">
                     <div className="flex justify-between items-start">
-                      <h3 className="text-sm font-medium text-foreground">E-commerce Platform</h3>
+                      <h3 className="text-sm font-medium text-foreground">Portfolio</h3>
                       <a
-                        href="https://project1.example.com"
+                        href="https://www.johannacharlottehorst.de/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs flex items-center text-primary hover:text-primary/80"
@@ -284,18 +283,17 @@ export default function Portfolio() {
                         View
                       </a>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">Next.js, TypeScript, Tailwind CSS, Stripe</p>
+                    <p className="text-xs text-muted-foreground mt-1">React, Tailwind, Framer Motion</p>
                     <p className="text-sm mt-2 text-foreground">
-                      A full-featured e-commerce platform with product listings, cart functionality, and secure
-                      checkout.
+                      A Portfolio website with smooth animations and responsive design.
                     </p>
                   </div>
 
                   <div className="border border-border rounded-md p-3">
                     <div className="flex justify-between items-start">
-                      <h3 className="text-sm font-medium text-foreground">Dashboard UI</h3>
+                      <h3 className="text-sm font-medium text-foreground">Is this East-Berlin</h3>
                       <a
-                        href="https://project2.example.com"
+                        href="https://www.isthiseastberlin.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs flex items-center text-primary hover:text-primary/80"
@@ -304,17 +302,17 @@ export default function Portfolio() {
                         View
                       </a>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">React, shadcn/ui, Recharts</p>
+                    <p className="text-xs text-muted-foreground mt-1">Next.js, React, shadcn, tailwind css, posthog, neon postgres, turf.js</p>
                     <p className="text-sm mt-2 text-foreground">
-                      An admin dashboard with data visualization, user management, and real-time analytics.
+                      A single purpose Application to find out if you are in East-Berlin or in West-Berlin. (Or not in Berlin at all).
                     </p>
                   </div>
 
                   <div className="border border-border rounded-md p-3">
                     <div className="flex justify-between items-start">
-                      <h3 className="text-sm font-medium text-foreground">Portfolio Website</h3>
+                      <h3 className="text-sm font-medium text-foreground">Portal Pioneer</h3>
                       <a
-                        href="https://project3.example.com"
+                        href="https://pioneer-sepia.vercel.app/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs flex items-center text-primary hover:text-primary/80"
@@ -323,9 +321,9 @@ export default function Portfolio() {
                         View
                       </a>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">Next.js, Tailwind CSS, Framer Motion</p>
+                    <p className="text-xs text-muted-foreground mt-1">Next.js, Tailwind CSS, Framer Motion, vercel, auth.js, bcrypt, node, drizzle, t3stack</p>
                     <p className="text-sm mt-2 text-foreground">
-                      A creative portfolio website with smooth animations and responsive design.
+                    A website to help you find more stuff on the Internet you didn't know you needed. Still under construction, but keep visiting, change is happening daily.
                     </p>
                   </div>
                 </div>
@@ -350,7 +348,7 @@ export default function Portfolio() {
           </div>
 
           <div className="mb-4">
-            <span className="text-primary">&#125;</span>
+            <span className="text-primary">&#123;</span>
           </div>
 
           <div>
