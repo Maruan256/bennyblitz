@@ -12,6 +12,7 @@ import {
   GraduationCap,
   User,
   Layers,
+  Menu,
 } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 
@@ -23,6 +24,7 @@ export default function Portfolio() {
   const { theme, setTheme } = useTheme()
   const [activeTab, setActiveTab] = useState("about")
   const [mounted, setMounted] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -41,14 +43,30 @@ export default function Portfolio() {
     return null
   }
 
+  const tabs = [
+    { id: "about", icon: User, label: "about" },
+    { id: "experience", icon: Briefcase, label: "experience" },
+    { id: "education", icon: GraduationCap, label: "education" },
+    { id: "skills", icon: Code, label: "skills" },
+    { id: "projects", icon: Layers, label: "projects" },
+  ]
+
   return (
     <div key={theme} className="max-w-4xl mx-auto">
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 md:p-6">
         <div className="text-sm md:text-base leading-relaxed">
-          <div className="text-[hsl(var(--syntax-highlight))] mb-2">
-            <span className="text-accent-foreground">import</span> <span className="text-primary">React</span>{" "}
-            <span className="text-accent-foreground">from</span>{" "}
-            <span className="text-secondary">&apos;react&apos;</span>
+          <div className="flex justify-between items-center mb-4">
+            <div className="text-[hsl(var(--syntax-highlight))]">
+              <span className="text-accent-foreground">import</span> <span className="text-primary">React</span>{" "}
+              <span className="text-accent-foreground">from</span>{" "}
+              <span className="text-secondary">&apos;react&apos;</span>
+            </div>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-primary hover:text-primary/80"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
           </div>
 
           <div className="mb-4">
@@ -105,43 +123,45 @@ export default function Portfolio() {
             <span className="text-[hsl(var(--syntax-highlight))]">&gt;</span>
           </div>
 
-          {/* Tabs Navigation */}
-          <div className="ml-16 mb-4 flex space-x-1 border-b border-border">
-            <button
-              onClick={() => setActiveTab("about")}
-              className={`px-3 py-1 rounded-t-md flex items-center ${activeTab === "about" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-accent"}`}
-            >
-              <User className="h-3 w-3 mr-1" />
-              <span>about</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("experience")}
-              className={`px-3 py-1 rounded-t-md flex items-center ${activeTab === "experience" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-accent"}`}
-            >
-              <Briefcase className="h-3 w-3 mr-1" />
-              <span>experience</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("education")}
-              className={`px-3 py-1 rounded-t-md flex items-center ${activeTab === "education" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-accent"}`}
-            >
-              <GraduationCap className="h-3 w-3 mr-1" />
-              <span>education</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("skills")}
-              className={`px-3 py-1 rounded-t-md flex items-center ${activeTab === "skills" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-accent"}`}
-            >
-              <Code className="h-3 w-3 mr-1" />
-              <span>skills</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("projects")}
-              className={`px-3 py-1 rounded-t-md flex items-center ${activeTab === "projects" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-accent"}`}
-            >
-              <Layers className="h-3 w-3 mr-1" />
-              <span>projects</span>
-            </button>
+          {/* Mobile Menu */}
+          <div className={`md:hidden ${mobileMenuOpen ? "block" : "hidden"}`}>
+            <div className="ml-16 mb-4 space-y-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setActiveTab(tab.id)
+                    setMobileMenuOpen(false)
+                  }}
+                  className={`w-full text-left px-3 py-1 rounded-md flex items-center ${
+                    activeTab === tab.id
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                  }`}
+                >
+                  <tab.icon className="h-3 w-3 mr-1" />
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Tabs Navigation */}
+          <div className="hidden md:flex ml-16 mb-4 space-x-1 border-b border-border">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3 py-1 rounded-t-md flex items-center ${
+                  activeTab === tab.id
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                }`}
+              >
+                <tab.icon className="h-3 w-3 mr-1" />
+                <span>{tab.label}</span>
+              </button>
+            ))}
           </div>
 
           {/* Tab Content */}
@@ -150,12 +170,12 @@ export default function Portfolio() {
               <div className="py-2">
                 <div className="text-sm text-muted-foreground mb-2">&#123;/* About me */&#125;</div>
                 <p className="text-sm mb-2 text-foreground">
-                  Not really "passionate" about anything. Just a web developer who loves building things that live on the
-                  internet.
+                  Not really "passionate" about anything. Just a web developer who loves building things that live on
+                  the internet.
                 </p>
-                <div className="flex items-center space-x-4 mt-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 mt-4">
                   <a
-                    href="mailto:john.doe@example.com"
+                    href="mailto:blitzbenny8@gmail.com"
                     className="flex items-center text-sm text-primary hover:text-primary/80"
                   >
                     <Mail className="h-4 w-4 mr-1" />
@@ -204,7 +224,7 @@ export default function Portfolio() {
                   <AccordionItem value="item-2">
                     <AccordionTrigger className="text-sm">
                       <div>
-                        <div className="font-medium text-foreground">Full Stck Developer</div>
+                        <div className="font-medium text-foreground">Full Stack Developer</div>
                         <div className="text-xs text-muted-foreground">Lufthansa Industry Solutions | 2022 - 2024</div>
                       </div>
                     </AccordionTrigger>
@@ -226,9 +246,7 @@ export default function Portfolio() {
                 <div className="mb-4">
                   <h3 className="text-sm font-medium text-foreground">Master of Arts</h3>
                   <p className="text-xs text-muted-foreground">University of Leipzig | 2012 - 2014</p>
-                  <p className="text-sm mt-1 text-foreground">
-                    Written two novels actually, one was my thesis.
-                  </p>
+                  <p className="text-sm mt-1 text-foreground">Written two novels actually, one was my thesis.</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-foreground">Bachelor of fine Arts in creative writing</h3>
@@ -241,11 +259,21 @@ export default function Portfolio() {
             {activeTab === "skills" && (
               <div className="py-2">
                 <div className="text-sm text-muted-foreground mb-2">&#123;/* Technical skills */&#125;</div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h3 className="text-sm font-medium text-foreground mb-2">Frontend</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", "Angular", "zod"].map((skill) => (
+                      {[
+                        "React",
+                        "Next.js",
+                        "TypeScript",
+                        "JavaScript",
+                        "HTML",
+                        "CSS",
+                        "Tailwind CSS",
+                        "Angular",
+                        "zod",
+                      ].map((skill) => (
                         <span key={skill} className="px-2 py-1 bg-primary/10 text-xs rounded-md text-primary">
                           {skill}
                         </span>
@@ -255,7 +283,19 @@ export default function Portfolio() {
                   <div>
                     <h3 className="text-sm font-medium text-foreground mb-2">Tools & Others</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["Git", "GitHub", "VS Code", "Figma", "Jest", "Webpack", "npm", "moccha", "playwright", "Docker", "Jenkins"].map((skill) => (
+                      {[
+                        "Git",
+                        "GitHub",
+                        "VS Code",
+                        "Figma",
+                        "Jest",
+                        "Webpack",
+                        "npm",
+                        "moccha",
+                        "playwright",
+                        "Docker",
+                        "Jenkins",
+                      ].map((skill) => (
                         <span key={skill} className="px-2 py-1 bg-primary/10 text-xs rounded-md text-primary">
                           {skill}
                         </span>
@@ -302,9 +342,12 @@ export default function Portfolio() {
                         View
                       </a>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">Next.js, React, shadcn, tailwind css, posthog, neon postgres, turf.js</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Next.js, React, shadcn, tailwind css, posthog, neon postgres, turf.js
+                    </p>
                     <p className="text-sm mt-2 text-foreground">
-                      A single purpose Application to find out if you are in East-Berlin or in West-Berlin. (Or not in Berlin at all).
+                      A single purpose Application to find out if you are in East-Berlin or in West-Berlin. (Or not in
+                      Berlin at all).
                     </p>
                   </div>
 
@@ -321,9 +364,12 @@ export default function Portfolio() {
                         View
                       </a>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">Next.js, Tailwind CSS, Framer Motion, vercel, auth.js, bcrypt, node, drizzle, t3stack</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Next.js, Tailwind CSS, Framer Motion, vercel, auth.js, bcrypt, node, drizzle, t3stack
+                    </p>
                     <p className="text-sm mt-2 text-foreground">
-                    A website to help you find more stuff on the Internet you didn't know you needed. Still under construction, but keep visiting, change is happening daily.
+                      A website to help you find more stuff on the Internet you didn't know you needed. Still under
+                      construction, but keep visiting, change is happening daily.
                     </p>
                   </div>
                 </div>
@@ -348,7 +394,7 @@ export default function Portfolio() {
           </div>
 
           <div className="mb-4">
-            <span className="text-primary">&#123;</span>
+            <span className="text-primary">&#125;</span>
           </div>
 
           <div>
