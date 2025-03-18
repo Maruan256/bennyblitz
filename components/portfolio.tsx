@@ -3,7 +3,35 @@
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 import { useState, useEffect } from "react"
-import { Github, Mail, Linkedin, ChevronDown, ExternalLink, Code, Briefcase, GraduationCap, User, Layers, Menu, X, Maximize2, Minimize2, Circle, ChevronRight, FolderOpen, Folder, FileText, File, Settings, Search, GitBranch, Play, Package, Heart, Coffee, Clock } from 'lucide-react'
+import {
+  Github,
+  Mail,
+  Linkedin,
+  ChevronDown,
+  ExternalLink,
+  Code,
+  Briefcase,
+  GraduationCap,
+  User,
+  Layers,
+  X,
+  Maximize2,
+  Minimize2,
+  Circle,
+  ChevronRight,
+  FolderOpen,
+  Folder,
+  FileText,
+  File,
+  Settings,
+  Search,
+  GitBranch,
+  Play,
+  Package,
+  Heart,
+  Coffee,
+  Clock,
+} from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
 import Chatbot from "@/components/chatbot"
 import Terminal from "@/components/terminal"
@@ -31,11 +59,11 @@ export default function Portfolio() {
   const [terminalMinimized, setTerminalMinimized] = useState(false)
 
   const fullscreenStyles = {
-    container: isFullscreen ? "max-w-none mx-0 h-screen" : "max-w-6xl mx-auto",
-    editor: isFullscreen ? "h-screen rounded-none border-0" : "rounded-lg border",
-    content: isFullscreen ? "p-6 md:p-8" : "p-4 md:p-6",
-    lineNumbers: isFullscreen ? "text-xs md:text-sm" : "text-xs",
-    code: isFullscreen ? "text-sm md:text-base lg:text-lg" : "text-sm md:text-base",
+    container: isFullscreen ? "max-w-none mx-0" : "max-w-6xl mx-auto px-2 sm:px-4",
+    editor: isFullscreen ? "h-screen rounded-none border-0" : "rounded-lg border h-[calc(100vh-2rem)]",
+    content: isFullscreen ? "p-4 sm:p-6 md:p-8" : "p-3 sm:p-4 md:p-6",
+    lineNumbers: isFullscreen ? "text-[10px] sm:text-xs md:text-sm" : "text-[10px] sm:text-xs",
+    code: isFullscreen ? "text-xs sm:text-sm md:text-base" : "text-xs sm:text-sm",
   }
 
   useEffect(() => {
@@ -97,13 +125,13 @@ export default function Portfolio() {
   const lineNumbers = Array.from({ length: 100 }, (_, i) => i + 1)
 
   return (
-    <div key={theme} className={fullscreenStyles.container}>
+    <div key={theme} className={`${fullscreenStyles.container} h-screen flex flex-col overflow-hidden`}>
       {/* VSCode-like editor container */}
       <div
-        className={`${fullscreenStyles.editor} bg-card text-card-foreground shadow-sm overflow-hidden flex flex-col`}
+        className={`${fullscreenStyles.editor} bg-card text-card-foreground shadow-sm overflow-hidden flex flex-col flex-1`}
       >
         {/* Editor header */}
-        <div className="flex items-center justify-between border-b border-border bg-muted/50 px-3 py-2">
+        <div className="flex items-center justify-between border-b border-border bg-muted/50 px-3 py-2 sticky top-0 z-10">
           <div className="flex items-center">
             {/* Window controls */}
             <div className="flex space-x-2 mr-4">
@@ -136,12 +164,11 @@ export default function Portfolio() {
             <button onClick={toggleFullscreen} className="text-muted-foreground hover:text-foreground">
               {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
             </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-muted-foreground hover:text-foreground"
-            >
-              {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
+            <div className="sm:hidden flex items-center space-x-2">
+              <span className="text-xs text-muted-foreground">
+                {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -278,7 +305,9 @@ export default function Portfolio() {
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
           {/* Sidebar */}
           <div
-            className={`${sidebarOpen ? "block" : "hidden"} md:block border-r border-border bg-muted/20 w-full md:w-56 shrink-0`}
+            className={`${
+              sidebarOpen ? "block" : "hidden"
+            } sm:block border-r border-border bg-muted/20 w-full sm:w-56 shrink-0 overflow-y-auto`}
           >
             {/* Sidebar header */}
             <div className="p-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">Explorer</div>
@@ -476,7 +505,7 @@ export default function Portfolio() {
           </div>
 
           {/* Main content area with integrated terminal */}
-          <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 flex flex-col min-h-0">
             {/* Mobile sidebar toggle */}
             <div className="md:hidden flex items-center border-b border-border p-2">
               <button
@@ -489,7 +518,7 @@ export default function Portfolio() {
             </div>
 
             {/* Code content - takes remaining space but allows terminal below */}
-            <div className="flex flex-1 overflow-auto min-h-0">
+            <div className="flex flex-1 overflow-hidden">
               {activeFile === "portfolio/page.tsx" ? (
                 <>
                   {/* Line numbers */}
@@ -504,7 +533,7 @@ export default function Portfolio() {
                   </div>
 
                   {/* Portfolio content */}
-                  <div className={`w-full ${fullscreenStyles.content} overflow-auto`}>
+                  <div className={`w-full ${fullscreenStyles.content} overflow-auto flex-1`}>
                     <div className={`${fullscreenStyles.code} leading-relaxed font-mono`}>
                       <div className="text-[hsl(var(--syntax-highlight))]">
                         <span className="text-accent-foreground">import</span>{" "}
@@ -570,36 +599,13 @@ export default function Portfolio() {
                         <span className="text-[hsl(var(--syntax-highlight))]">&gt;</span>
                       </div>
 
-                      {/* Mobile Menu */}
-                      <div className={`md:hidden ${mobileMenuOpen ? "block" : "hidden"}`}>
-                        <div className="ml-16 mb-4 space-y-2">
-                          {tabs.map((tab) => (
-                            <button
-                              key={tab.id}
-                              onClick={() => {
-                                setActiveTab(tab.id)
-                                setMobileMenuOpen(false)
-                              }}
-                              className={`w-full text-left px-3 py-1 rounded-md flex items-center ${
-                                activeTab === tab.id
-                                  ? "bg-primary text-primary-foreground"
-                                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                              }`}
-                            >
-                              <tab.icon className="h-3 w-3 mr-1" />
-                              <span>{tab.label}</span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
                       {/* Desktop Tabs Navigation */}
-                      <div className="hidden md:flex ml-16 mb-4 space-x-1 border-b border-border">
+                      <div className="hidden sm:flex ml-16 mb-4 space-x-1 border-b border-border overflow-x-auto pb-1 flex-wrap">
                         {tabs.map((tab) => (
                           <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`px-3 py-1 rounded-t-md flex items-center ${
+                            className={`px-3 py-1 rounded-t-md flex items-center whitespace-nowrap mb-1 ${
                               activeTab === tab.id
                                 ? "bg-primary text-primary-foreground"
                                 : "text-muted-foreground hover:text-foreground hover:bg-accent"
@@ -620,13 +626,13 @@ export default function Portfolio() {
                               Not really "passionate" about anything. Just a web developer who loves building things
                               that live on the internet.
                             </p>
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 mt-4">
+                            <div className="flex flex-col xs:flex-row xs:items-center xs:space-x-4 space-y-2 xs:space-y-0 mt-4">
                               <a
                                 href="mailto:blitzbenny8@gmail.com"
                                 className="flex items-center text-sm text-primary hover:text-primary/80"
                               >
                                 <Mail className="h-4 w-4 mr-1" />
-                                <span>blitzbenny8@gmail.com</span>
+                                <span className="truncate">blitzbenny8@gmail.com</span>
                               </a>
                               <a
                                 href="https://github.com/Maruan256"
@@ -635,7 +641,7 @@ export default function Portfolio() {
                                 className="flex items-center text-sm text-primary hover:text-primary/80"
                               >
                                 <Github className="h-4 w-4 mr-1" />
-                                <span>github.com/Maruan256</span>
+                                <span className="truncate">github.com/Maruan256</span>
                               </a>
                               <a
                                 href="https://www.linkedin.com/in/maruan-paschen/"
@@ -644,7 +650,7 @@ export default function Portfolio() {
                                 className="flex items-center text-sm text-primary hover:text-primary/80"
                               >
                                 <Linkedin className="h-4 w-4 mr-1" />
-                                <span>linkedin.com/in/maruan-paschen</span>
+                                <span className="truncate">linkedin.com/in/maruan-paschen</span>
                               </a>
                             </div>
                           </div>
@@ -714,7 +720,7 @@ export default function Portfolio() {
                         {activeTab === "skills" && (
                           <div className="py-2">
                             <div className="text-sm text-muted-foreground mb-2">/* Technical skills */</div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                               <div>
                                 <h3 className="text-sm font-medium text-foreground mb-2">Frontend</h3>
                                 <div className="flex flex-wrap gap-2">
@@ -897,7 +903,7 @@ export default function Portfolio() {
                       started.
                     </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl w-full mb-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl w-full mb-8">
                       <div
                         onClick={() => openFile("portfolio/page.tsx")}
                         className="flex items-start p-4 border border-border rounded-lg hover:bg-accent/20 cursor-pointer"
@@ -967,16 +973,22 @@ export default function Portfolio() {
               )}
             </div>
 
-            {/* Terminal component integrated into the content area */}
             {terminalVisible && (
-              <Terminal
-                isMinimized={terminalMinimized}
-                onMinimizeToggle={() => setTerminalMinimized(!terminalMinimized)}
-              />
+              <div className="border-t border-border">
+                <div className="sm:block hidden">
+                  <Terminal
+                    isMinimized={terminalMinimized}
+                    onMinimizeToggle={() => setTerminalMinimized(!terminalMinimized)}
+                  />
+                </div>
+                <div className="sm:hidden block">
+                  <Terminal isMinimized={true} onMinimizeToggle={() => setTerminalMinimized(!terminalMinimized)} />
+                </div>
+              </div>
             )}
 
             {/* Editor footer - always at the bottom */}
-            <div className="flex items-center justify-between border-t border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground shrink-0">
+            <div className="flex items-center justify-between border-t border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground sticky bottom-0 z-10">
               <div className="flex items-center space-x-4">
                 <div>TypeScript React</div>
                 <div>UTF-8</div>
@@ -994,8 +1006,29 @@ export default function Portfolio() {
         </div>
       </div>
 
+      {/* Mobile Tab Navigation - Fixed at bottom */}
+      <div className="sm:hidden fixed bottom-16 left-0 right-0 z-40 bg-card border-t border-border shadow-lg">
+        <div className="flex justify-around items-center p-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex flex-col items-center justify-center p-2 ${
+                activeTab === tab.id ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              <tab.icon className="h-5 w-5" />
+              <span className="text-xs mt-1">{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Chatbot component */}
-      <Chatbot />
+      <div className="fixed bottom-4 right-4 z-50">
+        <Chatbot />
+      </div>
     </div>
-  );
+  )
 }
+

@@ -140,7 +140,7 @@ export default function Chatbot() {
 
   return (
     <div
-      className={`fixed bottom-4 right-4 bg-card border border-border rounded-lg shadow-lg overflow-hidden z-50 transition-all duration-300 ease-in-out ${
+      className={`fixed sm:bottom-4 bottom-20 right-4 bg-card border border-border rounded-lg shadow-lg overflow-hidden z-50 transition-all duration-300 ease-in-out ${
         isMinimized ? "w-72 h-12" : "w-80 sm:w-96 h-96"
       }`}
     >

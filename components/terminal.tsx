@@ -233,7 +233,7 @@ export default function Terminal({ isMinimized, onMinimizeToggle }: TerminalProp
   }
 
   return (
-    <div className="flex flex-col border-t border-border shrink-0">
+    <div className="flex flex-col border-t border-border shrink-0 max-h-48 sm:pb-0 pb-16">
       {/* Terminal header */}
       <div className="flex items-center justify-between bg-muted/50 border-b border-border px-3 py-1">
         <div className="text-sm font-medium">Terminal</div>
