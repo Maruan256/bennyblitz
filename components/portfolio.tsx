@@ -1,44 +1,17 @@
 "use client"
 
+import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+
 import { useState, useEffect } from "react"
-import {
-  Github,
-  Mail,
-  Linkedin,
-  ChevronDown,
-  ExternalLink,
-  Code,
-  Briefcase,
-  GraduationCap,
-  User,
-  Layers,
-  Menu,
-  X,
-  Maximize2,
-  Minimize2,
-  Circle,
-  ChevronRight,
-  FolderOpen,
-  Folder,
-  FileText,
-  File,
-  Settings,
-  Search,
-  GitBranch,
-  Play,
-  Package,
-  Heart,
-  Coffee,
-  Clock,
-} from "lucide-react"
+import { Github, Mail, Linkedin, ChevronDown, ExternalLink, Code, Briefcase, GraduationCap, User, Layers, Menu, X, Maximize2, Minimize2, Circle, ChevronRight, FolderOpen, Folder, FileText, File, Settings, Search, GitBranch, Play, Package, Heart, Coffee, Clock } from 'lucide-react'
 import { useTheme } from "@/components/theme-provider"
 import Chatbot from "@/components/chatbot"
+import Terminal from "@/components/terminal"
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 
@@ -54,6 +27,8 @@ export default function Portfolio() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [expandedFolders, setExpandedFolders] = useState<string[]>(["portfolio"])
   const [activeFile, setActiveFile] = useState<string | null>(null)
+  const [terminalVisible, setTerminalVisible] = useState(true)
+  const [terminalMinimized, setTerminalMinimized] = useState(false)
 
   const fullscreenStyles = {
     container: isFullscreen ? "max-w-none mx-0 h-screen" : "max-w-6xl mx-auto",
@@ -124,7 +99,9 @@ export default function Portfolio() {
   return (
     <div key={theme} className={fullscreenStyles.container}>
       {/* VSCode-like editor container */}
-      <div className={`${fullscreenStyles.editor} bg-card text-card-foreground shadow-sm overflow-hidden`}>
+      <div
+        className={`${fullscreenStyles.editor} bg-card text-card-foreground shadow-sm overflow-hidden flex flex-col`}
+      >
         {/* Editor header */}
         <div className="flex items-center justify-between border-b border-border bg-muted/50 px-3 py-2">
           <div className="flex items-center">
@@ -250,10 +227,17 @@ export default function Portfolio() {
             </DropdownMenu>
 
             <DropdownMenu>
-              <DropdownMenuTrigger className="hidden sm:block px-3 py-1.5 hover:bg-accent/50 focus:outline-none">
+              <DropdownMenuTrigger className="px-3 py-1.5 hover:bg-accent/50 focus:outline-none">
                 Terminal
               </DropdownMenuTrigger>
               <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setTerminalVisible(!terminalVisible)}>
+                  {terminalVisible ? "Hide Terminal" : "Show Terminal"}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTerminalMinimized(!terminalMinimized)}>
+                  {terminalMinimized ? "Expand Terminal" : "Minimize Terminal"}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem>New Terminal</DropdownMenuItem>
                 <DropdownMenuItem>Split Terminal</DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -291,7 +275,7 @@ export default function Portfolio() {
         </div>
 
         {/* Editor body with sidebar and content */}
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
           {/* Sidebar */}
           <div
             className={`${sidebarOpen ? "block" : "hidden"} md:block border-r border-border bg-muted/20 w-full md:w-56 shrink-0`}
@@ -435,6 +419,19 @@ export default function Portfolio() {
                       />
                       <span>chatbot.tsx</span>
                     </button>
+                    <button
+                      onClick={() => openFile("components/terminal.tsx")}
+                      className={`flex items-center w-full text-left px-2 py-1 rounded ${
+                        activeFile === "components/terminal.tsx" ? "bg-accent/50" : "hover:bg-accent/50"
+                      } text-sm`}
+                    >
+                      <File
+                        className={`h-4 w-4 mr-1 ${
+                          activeFile === "components/terminal.tsx" ? "text-primary" : "text-muted-foreground"
+                        }`}
+                      />
+                      <span>terminal.tsx</span>
+                    </button>
                   </div>
                 )}
               </div>
@@ -478,8 +475,8 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* Main content area */}
-          <div className="flex-1 flex flex-col">
+          {/* Main content area with integrated terminal */}
+          <div className="flex-1 flex flex-col overflow-hidden">
             {/* Mobile sidebar toggle */}
             <div className="md:hidden flex items-center border-b border-border p-2">
               <button
@@ -491,8 +488,8 @@ export default function Portfolio() {
               </button>
             </div>
 
-            {/* Code content */}
-            <div className="flex flex-1 overflow-auto">
+            {/* Code content - takes remaining space but allows terminal below */}
+            <div className="flex flex-1 overflow-auto min-h-0">
               {activeFile === "portfolio/page.tsx" ? (
                 <>
                   {/* Line numbers */}
@@ -519,7 +516,7 @@ export default function Portfolio() {
                         <span className="text-accent-foreground">const</span>{" "}
                         <span className="text-[hsl(var(--syntax-highlight))]">Portfolio</span>{" "}
                         <span className="text-primary">=</span> <span className="text-accent-foreground">()</span>{" "}
-                        <span className="text-primary">=&gt;</span> <span className="text-primary">&#123;</span>
+                        <span className="text-primary">=&gt;</span> <span className="text-primary">{"{"}</span>
                       </div>
 
                       <div className="ml-4 mb-4">
@@ -618,7 +615,7 @@ export default function Portfolio() {
                       <div className="ml-16 mb-4">
                         {activeTab === "about" && (
                           <div className="py-2">
-                            <div className="text-sm text-muted-foreground mb-2">&#123;/* About me */&#125;</div>
+                            <div className="text-sm text-muted-foreground mb-2">/* About me */</div>
                             <p className="text-sm mb-2 text-foreground">
                               Not really "passionate" about anything. Just a web developer who loves building things
                               that live on the internet.
@@ -655,7 +652,7 @@ export default function Portfolio() {
 
                         {activeTab === "experience" && (
                           <div className="py-2">
-                            <div className="text-sm text-muted-foreground mb-2">&#123;/* Work experience */&#125;</div>
+                            <div className="text-sm text-muted-foreground mb-2">/* Work experience */</div>
                             <Accordion type="single" collapsible className="w-full">
                               <AccordionItem value="item-1">
                                 <AccordionTrigger className="text-sm">
@@ -696,7 +693,7 @@ export default function Portfolio() {
 
                         {activeTab === "education" && (
                           <div className="py-2">
-                            <div className="text-sm text-muted-foreground mb-2">&#123;/* Education */&#125;</div>
+                            <div className="text-sm text-muted-foreground mb-2">/* Education */</div>
                             <div className="mb-4">
                               <h3 className="text-sm font-medium text-foreground">Master of Arts</h3>
                               <p className="text-xs text-muted-foreground">University of Leipzig | 2012 - 2014</p>
@@ -716,7 +713,7 @@ export default function Portfolio() {
 
                         {activeTab === "skills" && (
                           <div className="py-2">
-                            <div className="text-sm text-muted-foreground mb-2">&#123;/* Technical skills */&#125;</div>
+                            <div className="text-sm text-muted-foreground mb-2">/* Technical skills */</div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div>
                                 <h3 className="text-sm font-medium text-foreground mb-2">Frontend</h3>
@@ -772,7 +769,7 @@ export default function Portfolio() {
 
                         {activeTab === "projects" && (
                           <div className="py-2">
-                            <div className="text-sm text-muted-foreground mb-2">&#123;/* Projects */&#125;</div>
+                            <div className="text-sm text-muted-foreground mb-2">/* Projects */</div>
                             <div className="space-y-4">
                               <div className="border border-border rounded-md p-3">
                                 <div className="flex justify-between items-start">
@@ -858,7 +855,7 @@ export default function Portfolio() {
                       </div>
 
                       <div className="mb-4">
-                        <span className="text-primary">&#125;</span>
+                        <span className="text-primary">{"}"}</span>
                       </div>
 
                       <div>
@@ -970,8 +967,16 @@ export default function Portfolio() {
               )}
             </div>
 
-            {/* Editor footer */}
-            <div className="flex items-center justify-between border-t border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground">
+            {/* Terminal component integrated into the content area */}
+            {terminalVisible && (
+              <Terminal
+                isMinimized={terminalMinimized}
+                onMinimizeToggle={() => setTerminalMinimized(!terminalMinimized)}
+              />
+            )}
+
+            {/* Editor footer - always at the bottom */}
+            <div className="flex items-center justify-between border-t border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground shrink-0">
               <div className="flex items-center space-x-4">
                 <div>TypeScript React</div>
                 <div>UTF-8</div>
@@ -992,6 +997,5 @@ export default function Portfolio() {
       {/* Chatbot component */}
       <Chatbot />
     </div>
-  )
+  );
 }
-
