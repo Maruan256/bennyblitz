@@ -623,7 +623,7 @@ export default function Portfolio() {
                           <div className="py-2">
                             <div className="text-sm text-muted-foreground mb-2">/* About me */</div>
                             <p className="text-sm mb-2 text-foreground">
-                              Not really "passionate" about anything. Just a web developer who loves building things
+                              Just a web developer who loves building things
                               that live on the internet.
                             </p>
                             <div className="flex flex-col xs:flex-row xs:items-center xs:space-x-4 space-y-2 xs:space-y-0 mt-4">
@@ -938,7 +938,7 @@ export default function Portfolio() {
                         <div className="text-left">
                           <h3 className="font-medium mb-1">GitHub Projects</h3>
                           <p className="text-sm text-muted-foreground">
-                            Check out my open source contributions and repositories
+                            Check out my recent commits and repositories
                           </p>
                         </div>
                       </div>

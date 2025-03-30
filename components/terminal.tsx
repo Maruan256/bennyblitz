@@ -118,7 +118,7 @@ export default function Terminal({ isMinimized, onMinimizeToggle }: TerminalProp
           <div className="text-primary font-bold">Benny Blitz</div>
           <div>Web Developer based in Berlin, Germany</div>
           <div className="mt-1 text-muted-foreground">
-            Not really "passionate" about anything. Just a web developer who loves building things that live on the
+            Just a web developer who loves building things that live on the
             internet.
           </div>
         </>

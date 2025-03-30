@@ -6,6 +6,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from '@vercel/analytics/next'
 
+
 const inter = Inter({ subsets: ["latin"] })
 
 const courierPrime = localFont({
@@ -86,6 +87,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
+ 
 }
 
 export default function RootLayout({
