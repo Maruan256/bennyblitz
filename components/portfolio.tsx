@@ -930,7 +930,7 @@ export default function Portfolio() {
                           </p>
                         </div>
                       </div>
-
+                      <a href="https://github.com/maruan256" target="_blank" rel="noopener noreferrer">
                       <div className="flex items-start p-4 border border-border rounded-lg hover:bg-accent/20 cursor-pointer">
                         <div className="mr-4 mt-1">
                           <Github className="h-6 w-6 text-purple-400" />
@@ -942,7 +942,8 @@ export default function Portfolio() {
                           </p>
                         </div>
                       </div>
-
+                      </a>
+                      <a href="https://www.linkedin.com/in/maruan-paschen/" target="_blank" rel="noopener noreferrer">
                       <div className="flex items-start p-4 border border-border rounded-lg hover:bg-accent/20 cursor-pointer">
                         <div className="mr-4 mt-1">
                           <Linkedin className="h-6 w-6 text-blue-500" />
@@ -952,6 +953,7 @@ export default function Portfolio() {
                           <p className="text-sm text-muted-foreground">Connect with me professionally on LinkedIn</p>
                         </div>
                       </div>
+                      </a>
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
